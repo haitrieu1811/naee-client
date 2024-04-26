@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import { Chivo as FontSans } from 'next/font/google'
-import { ReactNode } from 'react'
 import NextTopLoader from 'nextjs-toploader'
+import { ReactNode } from 'react'
+import { Toaster } from 'react-hot-toast'
 
+import TanstackProvider from '@/providers/tanstack-provider'
 import ThemeProvider from '@/providers/theme-provider'
 import './globals.css'
 
@@ -26,7 +28,10 @@ const RootLayout = ({
       <body className={fontSans.className}>
         <NextTopLoader color='red' height={2} showSpinner={false} shadow={false} />
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
-          {children}
+          <TanstackProvider>
+            {children}
+            <Toaster position='top-center' />
+          </TanstackProvider>
         </ThemeProvider>
       </body>
     </html>

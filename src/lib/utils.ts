@@ -1,6 +1,11 @@
-import { type ClassValue, clsx } from 'clsx'
+import { AxiosError, HttpStatusCode, isAxiosError } from 'axios'
+import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
-export function cn(...inputs: ClassValue[]) {
+export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs))
+}
+
+export const isEntityError = <Error>(error: unknown): error is AxiosError<Error> => {
+  return isAxiosError(error) && error.response?.status === HttpStatusCode.UnprocessableEntity
 }
