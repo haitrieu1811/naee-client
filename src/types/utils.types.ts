@@ -8,6 +8,10 @@ export type ErrorResponse<Error> = {
   errors: Error
 }
 
+export type OnlyMessageResponse = {
+  message: string
+}
+
 export type AuthResponse = SuccessResponse<{
   accessToken: string
   refreshToken: string

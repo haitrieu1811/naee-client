@@ -1,33 +1,25 @@
 'use client'
 
+import { useMutation } from '@tanstack/react-query'
 import Tippy from '@tippyjs/react/headless'
 import { Check, ChevronRight, Languages, Search, ShoppingCart, SunMoon, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
+import toast from 'react-hot-toast'
 
+import usersApis from '@/apis/users.apis'
 import { default as avatar, default as image } from '@/assets/images/react.png'
 import Logo from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
+import { UserRole } from '@/constants/enum'
 import PATH from '@/constants/path'
-
-const USER_LINKS = [
-  {
-    href: '/',
-    text: 'Tài khoản của tôi'
-  },
-  {
-    href: '/',
-    text: 'Đơn mua'
-  },
-  {
-    href: '/',
-    text: 'Đăng xuất'
-  }
-]
+import useIsClient from '@/hooks/useIsClient'
+import { AppContext } from '@/providers/app-provider'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState<string>('')
@@ -36,19 +28,48 @@ const Header = () => {
   const searchBoxRef = useRef<HTMLInputElement>(null)
 
   const { theme, setTheme } = useTheme()
+  const { isAuthenticated, setIsAuthenticated, profile, setProfile } = useContext(AppContext)
+  const isClient = useIsClient()
 
   const handleResetSearch = () => {
     setSearchQuery('')
     searchBoxRef.current?.focus()
   }
 
+  const logoutMutation = useMutation({
+    mutationKey: ['logout'],
+    mutationFn: usersApis.logout,
+    onSuccess: () => {
+      setIsAuthenticated(false)
+      setProfile(null)
+      toast.success('Đăng xuất thành công')
+    }
+  })
+
+  const USER_LINKS = useRef([
+    {
+      href: PATH.PROFILE,
+      text: 'Tài khoản của tôi'
+    },
+    {
+      href: '/',
+      text: 'Đơn mua'
+    },
+    {
+      text: 'Đăng xuất',
+      onClick: () => logoutMutation.mutate()
+    }
+  ])
+
   return (
     <header className='border-b bg-background'>
       <nav className='flex justify-between items-center max-w-7xl mx-auto py-2'>
         <div>
-          <Link href={'/'} className='text-sm'>
-            Kênh người bán
-          </Link>
+          {profile?.role === UserRole.Admin && isClient && (
+            <Link href={'/'} className='text-sm'>
+              Kênh người bán
+            </Link>
+          )}
         </div>
         <div className='flex items-center space-x-8'>
           <Tippy
@@ -113,33 +134,44 @@ const Header = () => {
               <span className='text-sm'>Giao diện</span>
             </div>
           </Tippy>
-          <div className='flex items-center'>
-            <Link href={PATH.REGISTER} className='text-sm'>
-              Đăng ký
-            </Link>
-            <Separator className='w-[1px] h-4 mx-2' />
-            <Link href={PATH.LOGIN} className='text-sm'>
-              Đăng nhập
-            </Link>
-          </div>
-          {false && (
+          {!isAuthenticated && isClient && (
+            <div className='flex items-center'>
+              <Link href={PATH.REGISTER} className='text-sm'>
+                Đăng ký
+              </Link>
+              <Separator className='w-[1px] h-4 mx-2' />
+              <Link href={PATH.LOGIN} className='text-sm'>
+                Đăng nhập
+              </Link>
+            </div>
+          )}
+          {isAuthenticated && profile && isClient && (
             <Tippy
               interactive
               offset={[0, 8]}
               placement='bottom-end'
               render={() => (
                 <div className='shadow-lg rounded-sm bg-background border overflow-hidden'>
-                  {USER_LINKS.map((item, index) => (
-                    <Button key={index} variant='ghost' className='flex justify-start rounded-none pr-10' asChild>
-                      <Link href={item.href}>{item.text}</Link>
+                  {USER_LINKS.current.map((item, index) => (
+                    <Button
+                      key={index}
+                      variant='ghost'
+                      className='flex justify-start rounded-none w-full pr-10'
+                      asChild={!!item.href}
+                      onClick={item.onClick}
+                    >
+                      {!!item.href ? <Link href={item.href}>{item.text}</Link> : item.text}
                     </Button>
                   ))}
                 </div>
               )}
             >
-              <Link href={'/'} className='flex items-center space-x-2'>
-                <Image width={20} height={20} src={avatar} alt='' className='w-5 h-5 rounded-full object-cover' />
-                <span className='text-sm'>Rumble Trần</span>
+              <Link href={PATH.PROFILE} className='flex items-center space-x-2'>
+                <Avatar className='w-5 h-5'>
+                  <AvatarImage src={profile.avatar} alt={profile.fullName} />
+                  <AvatarFallback>{profile.email[0].toUpperCase()}</AvatarFallback>
+                </Avatar>
+                <span className='text-sm'>{!!profile?.fullName ? profile.fullName : profile?.email}</span>
               </Link>
             </Tippy>
           )}

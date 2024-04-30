@@ -4,6 +4,7 @@ import NextTopLoader from 'nextjs-toploader'
 import { ReactNode } from 'react'
 import { Toaster } from 'react-hot-toast'
 
+import AppProvider from '@/providers/app-provider'
 import TanstackProvider from '@/providers/tanstack-provider'
 import ThemeProvider from '@/providers/theme-provider'
 import './globals.css'
@@ -29,8 +30,10 @@ const RootLayout = ({
         <NextTopLoader color='red' height={2} showSpinner={false} shadow={false} />
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
           <TanstackProvider>
-            {children}
-            <Toaster position='top-center' />
+            <AppProvider>
+              {children}
+              <Toaster position='top-center' />
+            </AppProvider>
           </TanstackProvider>
         </ThemeProvider>
       </body>

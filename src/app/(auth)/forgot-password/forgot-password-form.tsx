@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
@@ -5,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import PATH from '@/constants/path'
+import isNotAuth from '@/hocs/isNotAuth'
 
 const ForgotPasswordForm = () => {
   return (
@@ -36,4 +39,4 @@ const ForgotPasswordForm = () => {
   )
 }
 
-export default ForgotPasswordForm
+export default isNotAuth(ForgotPasswordForm)

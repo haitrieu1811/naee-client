@@ -15,6 +15,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import PATH from '@/constants/path'
+import isNotAuth from '@/hocs/isNotAuth'
 import { isEntityError } from '@/lib/utils'
 import { RegisterSchema, registerSchema } from '@/rules/users.rules'
 import { ErrorResponse } from '@/types/utils.types'
@@ -123,4 +124,4 @@ const RegisterForm = () => {
   )
 }
 
-export default RegisterForm
+export default isNotAuth(RegisterForm)
