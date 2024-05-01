@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, HttpStatusCode, InternalAxiosRequestConfig } from 'axios'
-import toast from 'react-hot-toast'
+import { toast } from 'sonner'
 
 import { LOGIN_URL, LOGOUT_URL, REFRESH_TOKEN_URL, UPDATE_ME_URL } from '@/apis/users.apis'
 import {

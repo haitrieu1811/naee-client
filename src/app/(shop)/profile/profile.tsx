@@ -7,7 +7,7 @@ import isEmpty from 'lodash/isEmpty'
 import { Loader2 } from 'lucide-react'
 import { Fragment, useContext, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
+import { toast } from 'sonner'
 
 import filesApis from '@/apis/files.apis'
 import usersApis from '@/apis/users.apis'

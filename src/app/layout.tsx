@@ -1,8 +1,8 @@
+import { Toaster } from '@/components/ui/sonner'
 import type { Metadata } from 'next'
 import { Chivo as FontSans } from 'next/font/google'
 import NextTopLoader from 'nextjs-toploader'
 import { ReactNode } from 'react'
-import { Toaster } from 'react-hot-toast'
 
 import AppProvider from '@/providers/app-provider'
 import TanstackProvider from '@/providers/tanstack-provider'
@@ -32,7 +32,7 @@ const RootLayout = ({
           <TanstackProvider>
             <AppProvider>
               {children}
-              <Toaster position='top-center' />
+              <Toaster position='top-center' richColors />
             </AppProvider>
           </TanstackProvider>
         </ThemeProvider>

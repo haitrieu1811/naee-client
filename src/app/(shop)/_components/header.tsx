@@ -7,7 +7,7 @@ import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useContext, useRef, useState } from 'react'
-import toast from 'react-hot-toast'
+import { toast } from 'sonner'
 
 import usersApis from '@/apis/users.apis'
 import { default as avatar, default as image } from '@/assets/images/react.png'

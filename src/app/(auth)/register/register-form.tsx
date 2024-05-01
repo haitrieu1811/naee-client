@@ -6,7 +6,7 @@ import isEmpty from 'lodash/isEmpty'
 import { Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
-import { toast } from 'react-hot-toast'
+import { toast } from 'sonner'
 
 import usersApis from '@/apis/users.apis'
 import InputPassword from '@/components/input-password'

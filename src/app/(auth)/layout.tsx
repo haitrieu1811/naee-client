@@ -7,7 +7,7 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
   return (
     <Fragment>
       <Header />
-      <main className='max-w-7xl mx-auto'>{children}</main>
+      <main className='max-w-7xl mx-auto pb-20'>{children}</main>
       <Footer />
     </Fragment>
   )

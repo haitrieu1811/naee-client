@@ -1,6 +1,6 @@
 import toArray from 'lodash/toArray'
 import { ChangeEvent, Fragment, ReactNode, useRef } from 'react'
-import { toast } from 'react-hot-toast'
+import { toast } from 'sonner'
 
 interface InputFileProps {
   children: ReactNode
