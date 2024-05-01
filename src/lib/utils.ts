@@ -17,8 +17,5 @@ export const isUnauthorizedError = <Error>(error: unknown): error is AxiosError<
 }
 
 export const isExpiredError = <UnauthorizedError>(error: unknown): error is AxiosError<UnauthorizedError> => {
-  return (
-    isUnauthorizedError<ErrorResponse<{ message: string; name: string }>>(error) &&
-    error.response?.data.errors?.name === 'EXPIRED_TOKEN'
-  )
+  return isUnauthorizedError<ErrorResponse<{}>>(error) && error.response?.data.message === 'Jwt expired'
 }

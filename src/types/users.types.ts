@@ -5,6 +5,7 @@ export type LoggedUser = {
   _id: string
   email: string
   fullName: string
+  phoneNumber: string
   avatar: string
   status: UserStatus
   role: UserRole
@@ -18,3 +19,7 @@ export type LoginResponse = SuccessResponse<{
   refreshToken: string
   user: LoggedUser
 }>
+
+export type GetMeResponse = LoginResponse
+
+export type UpdateMeResponse = LoginResponse

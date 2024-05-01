@@ -62,7 +62,7 @@ const Header = () => {
   ])
 
   return (
-    <header className='border-b bg-background'>
+    <header className='border-b bg-background sticky top-0 left-0 right-0 z-10'>
       <nav className='flex justify-between items-center max-w-7xl mx-auto py-2'>
         <div>
           {profile?.role === UserRole.Admin && isClient && (
@@ -186,7 +186,7 @@ const Header = () => {
             offset={[0, 10]}
             onClickOutside={() => setIsFocusSearchBox(false)}
             render={() => (
-              <div className='bg-background rounded-sm shadow-lg w-[800px] py-2 overflow-hidden'>
+              <div className='bg-background rounded-sm shadow-lg border w-[800px] py-2 overflow-hidden'>
                 {Array(2)
                   .fill(0)
                   .map((_, index) => (
@@ -197,11 +197,8 @@ const Header = () => {
                       </Link>
                     </Button>
                   ))}
-                <Button
-                  variant='ghost'
-                  className='rounded-none w-full justify-end space-x-2 text-blue-600 hover:text-blue-700'
-                >
-                  <span>Xem thêm</span>
+                <Button variant='ghost' className='rounded-none w-full justify-end space-x-2'>
+                  <span className='font-semibold'>Xem thêm</span>
                   <ChevronRight size={16} />
                 </Button>
               </div>
@@ -273,9 +270,7 @@ const Header = () => {
                   <Button variant='outline' className='text-sm rounded-sm'>
                     Thanh toán
                   </Button>
-                  <Button className='text-sm rounded-sm bg-blue-600 hover:bg-blue-700 text-background'>
-                    Xem giỏ hàng
-                  </Button>
+                  <Button className='text-sm rounded-sm'>Xem giỏ hàng</Button>
                 </div>
               </div>
             )}

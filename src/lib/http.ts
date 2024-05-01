@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, HttpStatusCode, InternalAxiosRequestConfig } from 'axios'
 import toast from 'react-hot-toast'
 
-import { LOGIN_URL, LOGOUT_URL, REFRESH_TOKEN_URL } from '@/apis/users.apis'
+import { LOGIN_URL, LOGOUT_URL, REFRESH_TOKEN_URL, UPDATE_ME_URL } from '@/apis/users.apis'
 import {
   getAccessTokenFromLS,
   getProfileFromLS,
@@ -49,8 +49,8 @@ class Http {
 
     this.instance.interceptors.response.use(
       (response) => {
-        const { url } = response.config
-        if (url && [LOGIN_URL].includes(url)) {
+        const { url, method } = response.config
+        if (url && method && [LOGIN_URL, UPDATE_ME_URL].includes(url) && ['patch', 'post'].includes(method)) {
           const { accessToken, refreshToken, user } = (response.data as LoginResponse).data
           this.accessToken = accessToken
           this.refreshToken = refreshToken
@@ -99,7 +99,7 @@ class Http {
           this.accessToken = null
           this.refreshToken = null
           this.profile = null
-          const errorMessage = error.response?.data.errors.message || error.response?.data.message
+          const errorMessage = error.response?.data.errors?.message || error.response?.data.message
           if (errorMessage) {
             toast.error(errorMessage)
           }

@@ -1,7 +1,7 @@
-import ProfileClient from '@/app/(shop)/profile/profile-client'
+import Profile from '@/app/(shop)/profile/profile'
 
 const ProfilePage = () => {
-  return <ProfileClient />
+  return <Profile />
 }
 
 export default ProfilePage
