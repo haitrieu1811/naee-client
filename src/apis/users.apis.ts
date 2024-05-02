@@ -36,6 +36,10 @@ const usersApis = {
 
   verifyEmail(body: { verifyEmailToken: string }) {
     return http.post<LoginResponse>('/users/verify-email', body)
+  },
+
+  changePassword(body: { oldPassword: string; password: string; confirmPassword: string }) {
+    return http.patch<OnlyMessageResponse>('/users/change-password', body)
   }
 } as const
 

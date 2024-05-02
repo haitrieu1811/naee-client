@@ -27,7 +27,7 @@ const SIDEBAR_LINKS = [
         text: 'Địa chỉ'
       },
       {
-        href: '/',
+        href: PATH.PASSWORD,
         text: 'Đổi mật khẩu'
       }
     ]
@@ -70,22 +70,22 @@ const ProfileSidebar = () => {
       <div className='space-y-4'>
         {SIDEBAR_LINKS.map((item, index) => {
           const childrenHrefs = item.childrens?.map((item) => item.href)
-          const isActive = item.href === pathname && !childrenHrefs?.includes(pathname)
+          const isActive = item.href === pathname && !childrenHrefs?.includes(pathname as any)
           return (
             <div key={index}>
               <Link href={item.href} className='flex items-center space-x-3 group'>
                 <item.icon
                   size={18}
                   className={clsx({
-                    'group-hover:text-red-500': !isActive,
-                    'text-red-500': isActive
+                    'group-hover:text-destructive': !isActive,
+                    'text-destructive': isActive
                   })}
                 />
                 <span
                   className={clsx({
                     'text-sm font-medium': true,
-                    'group-hover:text-red-500': !isActive,
-                    'text-red-500': isActive
+                    'group-hover:text-destructive': !isActive,
+                    'text-destructive': isActive
                   })}
                 >
                   {item.text}
@@ -101,8 +101,8 @@ const ProfileSidebar = () => {
                         href={item.href}
                         className={clsx({
                           'block text-sm first:mt-3': true,
-                          'hover:text-red-500 text-muted-foreground': !isActive,
-                          'text-red-500': isActive
+                          'hover:text-destructive text-muted-foreground': !isActive,
+                          'text-destructive': isActive
                         })}
                       >
                         {item.text}

@@ -5,7 +5,8 @@ const PATH = {
   FORGOT_PASSWORD: '/forgot-password',
   PROFILE: '/profile',
   ORDERS: '/profile/orders',
-  ADDRESSES: '/profile/addresses'
+  ADDRESSES: '/profile/addresses',
+  PASSWORD: '/profile/password'
 } as const
 
 export default PATH
