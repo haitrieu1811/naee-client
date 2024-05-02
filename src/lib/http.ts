@@ -114,9 +114,11 @@ class Http {
     return this.instance
       .post<AuthResponse>(REFRESH_TOKEN_URL, { refreshToken: this.refreshToken })
       .then((res) => {
-        const { accessToken } = res.data.data
+        const { accessToken, refreshToken } = res.data.data
         setAccessTokenToLS(accessToken)
+        setRefreshTokenToLS(refreshToken)
         this.accessToken = accessToken
+        this.refreshToken = refreshToken
         return accessToken
       })
       .catch((error) => {

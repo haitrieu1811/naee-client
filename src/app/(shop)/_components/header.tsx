@@ -63,7 +63,7 @@ const Header = () => {
 
   return (
     <header className='border-b bg-background sticky top-0 left-0 right-0 z-10'>
-      <nav className='flex justify-between items-center max-w-7xl mx-auto py-2'>
+      <nav className='flex justify-between items-center h-10 max-w-7xl mx-auto'>
         <div>
           {profile?.role === UserRole.Admin && isClient && (
             <Link href={'/'} className='text-sm'>
@@ -177,7 +177,7 @@ const Header = () => {
           )}
         </div>
       </nav>
-      <div className='max-w-7xl mx-auto flex items-center space-x-20 py-8'>
+      <div className='max-w-7xl mx-auto flex items-center h-24 space-x-20'>
         <Logo />
         <div className='flex-1'>
           <Tippy

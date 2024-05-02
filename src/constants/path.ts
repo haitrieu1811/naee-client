@@ -4,7 +4,8 @@ const PATH = {
   REGISTER: '/register',
   FORGOT_PASSWORD: '/forgot-password',
   PROFILE: '/profile',
-  ORDERS: '/profile/orders'
+  ORDERS: '/profile/orders',
+  ADDRESSES: '/profile/addresses'
 } as const
 
 export default PATH

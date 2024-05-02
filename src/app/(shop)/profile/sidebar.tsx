@@ -23,7 +23,7 @@ const SIDEBAR_LINKS = [
         text: 'Hồ sơ'
       },
       {
-        href: '/',
+        href: PATH.ADDRESSES,
         text: 'Địa chỉ'
       },
       {
@@ -59,7 +59,7 @@ const ProfileSidebar = () => {
           </Avatar>
           <div className='space-y-0.5'>
             <h3 className='text-[15px] font-semibold'>{profile.fullName || 'Chưa đặt tên'}</h3>
-            <Link href={'/'} className='flex items-center space-x-2'>
+            <Link href={PATH.PROFILE} className='flex items-center space-x-2'>
               <SquarePen size={14} className='text-muted-foreground' />
               <span className='text-sm text-muted-foreground'>Sửa hồ sơ</span>
             </Link>
@@ -77,15 +77,15 @@ const ProfileSidebar = () => {
                 <item.icon
                   size={18}
                   className={clsx({
-                    'group-hover:text-destructive': !isActive,
-                    'text-destructive': isActive
+                    'group-hover:text-red-500': !isActive,
+                    'text-red-500': isActive
                   })}
                 />
                 <span
                   className={clsx({
                     'text-sm font-medium': true,
-                    'group-hover:text-destructive': !isActive,
-                    'text-destructive': isActive
+                    'group-hover:text-red-500': !isActive,
+                    'text-red-500': isActive
                   })}
                 >
                   {item.text}
@@ -101,8 +101,8 @@ const ProfileSidebar = () => {
                         href={item.href}
                         className={clsx({
                           'block text-sm first:mt-3': true,
-                          'hover:text-destructive text-muted-foreground': !isActive,
-                          'text-destructive': isActive
+                          'hover:text-red-500 text-muted-foreground': !isActive,
+                          'text-red-500': isActive
                         })}
                       >
                         {item.text}

@@ -27,3 +27,15 @@ export type UploadImageResponse = SuccessResponse<{
     url: string
   }[]
 }>
+
+export type PaginationReqQuery = {
+  page?: number
+  limit?: number
+}
+
+export type Pagination = {
+  page: number
+  limit: number
+  totalRows: number
+  totalPages: number
+}

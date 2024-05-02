@@ -32,7 +32,7 @@ const RootLayout = ({
           <TanstackProvider>
             <AppProvider>
               {children}
-              <Toaster position='top-center' richColors />
+              <Toaster position='bottom-left' richColors />
             </AppProvider>
           </TanstackProvider>
         </ThemeProvider>
