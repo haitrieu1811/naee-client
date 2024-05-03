@@ -1,7 +1,13 @@
 import axios, { AxiosInstance, HttpStatusCode, InternalAxiosRequestConfig } from 'axios'
 import { toast } from 'sonner'
 
-import { LOGIN_URL, LOGOUT_URL, REFRESH_TOKEN_URL, UPDATE_ME_URL } from '@/apis/users.apis'
+import {
+  LOGIN_URL,
+  LOGOUT_URL,
+  REFRESH_TOKEN_URL,
+  UPDATE_ME_URL,
+  VERIFY_FORGOT_PASSWORD_TOKEN_URL
+} from '@/apis/users.apis'
 import {
   getAccessTokenFromLS,
   getProfileFromLS,
@@ -78,7 +84,7 @@ class Http {
           const config = error.response?.config || ({ headers: {} } as InternalAxiosRequestConfig)
           const { url } = config
           // Khi access token hết hạn và không phải request từ refresh access token
-          if (isExpiredError(error) && url !== REFRESH_TOKEN_URL) {
+          if (isExpiredError(error) && url && ![VERIFY_FORGOT_PASSWORD_TOKEN_URL, REFRESH_TOKEN_URL].includes(url)) {
             this.refreshTokenRequest = this.refreshTokenRequest
               ? this.refreshTokenRequest
               : this.handleRefreshToken().finally(() => {

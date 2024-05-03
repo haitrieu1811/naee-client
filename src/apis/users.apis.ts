@@ -7,6 +7,7 @@ export const LOGIN_URL = '/users/login'
 export const LOGOUT_URL = '/users/logout'
 export const REFRESH_TOKEN_URL = '/users/refresh-token'
 export const UPDATE_ME_URL = '/users/me'
+export const VERIFY_FORGOT_PASSWORD_TOKEN_URL = '/users/verify-forgot-password-token'
 
 const usersApis = {
   register(body: { email: string; password: string; confirmPassword: string }) {
@@ -40,6 +41,18 @@ const usersApis = {
 
   changePassword(body: { oldPassword: string; password: string; confirmPassword: string }) {
     return http.patch<OnlyMessageResponse>('/users/change-password', body)
+  },
+
+  forgotPassword(body: { email: string }) {
+    return http.post<OnlyMessageResponse>('/users/forgot-password', body)
+  },
+
+  verifyForgotPasswordToken(body: { forgotPasswordToken: string }) {
+    return http.post<OnlyMessageResponse>(VERIFY_FORGOT_PASSWORD_TOKEN_URL, body)
+  },
+
+  resetPassword(body: { password: string; confirmPassword: string; forgotPasswordToken: string }) {
+    return http.patch<OnlyMessageResponse>('/users/reset-password', body)
   }
 } as const
 

@@ -50,7 +50,23 @@ export const changePasswordSchema = usersSchema
     path: ['confirmPassword']
   })
 
+export const forgotPasswordSchema = usersSchema.pick({
+  email: true
+})
+
+export const resetPasswordSchema = usersSchema
+  .pick({
+    password: true,
+    confirmPassword: true
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Nhập lại mật khẩu không chính xác',
+    path: ['confirmPassword']
+  })
+
 export type RegisterSchema = z.infer<typeof registerSchema>
 export type LoginSchema = z.infer<typeof loginSchema>
 export type UpdateMeSchema = z.infer<typeof updateMeSchema>
 export type ChangePasswordSchema = z.infer<typeof changePasswordSchema>
+export type ForgotPasswordSchema = z.infer<typeof forgotPasswordSchema>
+export type ResetPasswordSchema = z.infer<typeof resetPasswordSchema>
