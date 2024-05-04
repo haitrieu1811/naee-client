@@ -2,7 +2,7 @@ import z from 'zod'
 
 import { EMAIL_REGEX, PHONE_NUMBER_REGEX } from '@/constants/regex'
 
-export const usersSchema = z.object({
+export const userSchema = z.object({
   email: z.string().regex(EMAIL_REGEX, 'Email không hợp lệ'),
   password: z
     .string()
@@ -13,7 +13,7 @@ export const usersSchema = z.object({
   fullName: z.string().min(1, 'Tên phải tối thiểu 1 ký tự')
 })
 
-export const registerSchema = usersSchema
+export const registerSchema = userSchema
   .pick({
     email: true,
     password: true,
@@ -24,17 +24,17 @@ export const registerSchema = usersSchema
     path: ['confirmPassword']
   })
 
-export const loginSchema = usersSchema.pick({
+export const loginSchema = userSchema.pick({
   email: true,
   password: true
 })
 
-export const updateMeSchema = usersSchema.pick({
+export const updateMeSchema = userSchema.pick({
   phoneNumber: true,
   fullName: true
 })
 
-export const changePasswordSchema = usersSchema
+export const changePasswordSchema = userSchema
   .pick({
     password: true,
     confirmPassword: true
@@ -50,11 +50,11 @@ export const changePasswordSchema = usersSchema
     path: ['confirmPassword']
   })
 
-export const forgotPasswordSchema = usersSchema.pick({
+export const forgotPasswordSchema = userSchema.pick({
   email: true
 })
 
-export const resetPasswordSchema = usersSchema
+export const resetPasswordSchema = userSchema
   .pick({
     password: true,
     confirmPassword: true

@@ -113,7 +113,7 @@ const CreateAddressForm = ({ setIsOpen, addressId }: CreateAddressFormProps) => 
     }
   })
 
-  const onSubmit = form.handleSubmit((data) => {
+  const handleSubmit = form.handleSubmit((data) => {
     if (!addressId) {
       createAddressMutation.mutate({
         ...data,
@@ -125,7 +125,7 @@ const CreateAddressForm = ({ setIsOpen, addressId }: CreateAddressFormProps) => 
 
   return (
     <Form {...form}>
-      <form className='space-y-8' onSubmit={onSubmit}>
+      <form className='space-y-8' onSubmit={handleSubmit}>
         <div className='flex space-x-4'>
           <div className='flex-auto'>
             <FormField

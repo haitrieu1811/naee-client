@@ -49,7 +49,7 @@ const ForgotPasswordForm = () => {
     }
   })
 
-  const onSubmit = form.handleSubmit((data) => {
+  const handleSubmit = form.handleSubmit((data) => {
     forgotPasswordMutation.mutate(data)
   })
 
@@ -61,7 +61,7 @@ const ForgotPasswordForm = () => {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form className='space-y-4' onSubmit={onSubmit}>
+          <form className='space-y-4' onSubmit={handleSubmit}>
             <FormField
               control={form.control}
               name='email'

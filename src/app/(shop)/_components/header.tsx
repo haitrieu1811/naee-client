@@ -66,7 +66,7 @@ const Header = () => {
       <nav className='flex justify-between items-center h-10 max-w-7xl mx-auto'>
         <div>
           {profile?.role === UserRole.Admin && isClient && (
-            <Link href={'/'} className='text-sm'>
+            <Link href={PATH.DASHBOARD} className='text-sm'>
               Kênh người bán
             </Link>
           )}

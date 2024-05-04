@@ -4,6 +4,7 @@ import { Chivo as FontSans } from 'next/font/google'
 import NextTopLoader from 'nextjs-toploader'
 import { ReactNode } from 'react'
 
+import { TooltipProvider } from '@/components/ui/tooltip'
 import AppProvider from '@/providers/app-provider'
 import TanstackProvider from '@/providers/tanstack-provider'
 import ThemeProvider from '@/providers/theme-provider'
@@ -30,10 +31,12 @@ const RootLayout = ({
         <NextTopLoader color='red' height={2} showSpinner={false} shadow={false} />
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
           <TanstackProvider>
-            <AppProvider>
-              {children}
-              <Toaster position='bottom-left' richColors />
-            </AppProvider>
+            <TooltipProvider>
+              <AppProvider>
+                {children}
+                <Toaster position='bottom-left' richColors />
+              </AppProvider>
+            </TooltipProvider>
           </TanstackProvider>
         </ThemeProvider>
       </body>
