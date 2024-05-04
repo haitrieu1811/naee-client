@@ -19,7 +19,8 @@ const PATH = {
   DASHBOARD_PRODUCT_CATEGORY_NEW: '/dashboard/product-category/new',
   DASHBOARD_PRODUCT_CATEGORY_UPDATE: (productCategoryId: string) => `/dashboard/product-category/${productCategoryId}`,
   DASHBOARD_PRODUCT_BRAND: '/dashboard/brand',
-  DASHBOARD_PRODUCT_BRAND_NEW: '/dashboard/brand/new'
+  DASHBOARD_PRODUCT_BRAND_NEW: '/dashboard/brand/new',
+  DASHBOARD_BRAND_UPDATE: (brandId: string) => `/dashboard/brand/${brandId}`
 } as const
 
 export default PATH

@@ -1,6 +1,6 @@
 import z from 'zod'
 
-import { usersSchema } from '@/rules/users.rules'
+import { userSchema } from '@/rules/users.rules'
 import { AddressType } from '@/constants/enum'
 
 export const addressSchema = z.object({
@@ -20,7 +20,7 @@ export const createAddressSchema = addressSchema
     type: true
   })
   .and(
-    usersSchema.pick({
+    userSchema.pick({
       phoneNumber: true,
       fullName: true
     })

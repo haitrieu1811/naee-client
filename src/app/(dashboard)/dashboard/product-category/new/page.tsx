@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 
-import DashboardProductCategoryNew from '@/app/(dashboard)/dashboard/product-category/new/new'
+import CreateProductCategoryForm from '@/app/(dashboard)/dashboard/product-category/create-product-category-form'
 
 export const metadata: Metadata = {
   title: 'NAEE | Tạo danh mục sản phẩm mới',
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 const DashboardProductCategoryNewPage = () => {
-  return <DashboardProductCategoryNew />
+  return <CreateProductCategoryForm />
 }
 
 export default DashboardProductCategoryNewPage

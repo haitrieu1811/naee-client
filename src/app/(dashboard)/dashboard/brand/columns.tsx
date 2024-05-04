@@ -21,9 +21,9 @@ import {
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import PATH from '@/constants/path'
-import { ProductCategory } from '@/types/products.types'
+import { Brand } from '@/types/products.types'
 
-export const columns: ColumnDef<ProductCategory>[] = [
+export const columns: ColumnDef<Brand>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -47,7 +47,13 @@ export const columns: ColumnDef<ProductCategory>[] = [
   },
   {
     accessorKey: 'name',
-    header: ({ column }) => <DataTableColumnHeader column={column} title='Tên danh mục' />,
+    header: ({ column }) => <DataTableColumnHeader column={column} title='Tên nhãn hiệu' />,
+    enableSorting: false,
+    enableHiding: false
+  },
+  {
+    accessorKey: 'nation',
+    header: ({ column }) => <DataTableColumnHeader column={column} title='Quốc gia' />,
     enableSorting: false,
     enableHiding: false
   },
@@ -68,22 +74,22 @@ export const columns: ColumnDef<ProductCategory>[] = [
     header: () => <div className='text-right'>Thao tác</div>,
     cell: ({ row }) => {
       const queryClient = useQueryClient()
-      const productCategory = row.original
+      const brand = row.original
 
-      const deleteProductCategoryMutation = useMutation({
-        mutationKey: ['delete-product-category'],
-        mutationFn: productsApis.deleteCategory,
+      const deleteBrandMutation = useMutation({
+        mutationKey: ['delete-brand'],
+        mutationFn: productsApis.deleteBrand,
         onSuccess: (data) => {
           const { message } = data.data
           toast.success(message)
-          queryClient.invalidateQueries({ queryKey: ['get-all-product-categories'] })
+          queryClient.invalidateQueries({ queryKey: ['get-all-brands'] })
         }
       })
 
       return (
         <div className='flex justify-end space-x-3'>
           <Button size='sm' asChild>
-            <Link href={PATH.DASHBOARD_PRODUCT_CATEGORY_UPDATE(productCategory._id)}>
+            <Link href={PATH.DASHBOARD_BRAND_UPDATE(brand._id)}>
               <PenLine size={16} className='mr-2' />
               Cập nhật
             </Link>
@@ -97,16 +103,14 @@ export const columns: ColumnDef<ProductCategory>[] = [
             </AlertDialogTrigger>
             <AlertDialogContent className='max-w-sm'>
               <AlertDialogHeader>
-                <AlertDialogTitle>Bạn có chắc muốn xóa danh mục sản phẩm này?</AlertDialogTitle>
+                <AlertDialogTitle>Bạn có chắc muốn xóa nhãn hiệu này?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Danh mục sản phẩm này sẽ bị xóa vĩnh viễn và không thể khôi phục.
+                  Nhãn hiệu này sẽ bị xóa vĩnh viễn và không thể khôi phục.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Hủy</AlertDialogCancel>
-                <AlertDialogAction onClick={() => deleteProductCategoryMutation.mutate(productCategory._id)}>
-                  Xóa
-                </AlertDialogAction>
+                <AlertDialogAction onClick={() => deleteBrandMutation.mutate(brand._id)}>Xóa</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>

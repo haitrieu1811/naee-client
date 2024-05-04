@@ -17,6 +17,15 @@ export type ProductCategory = {
   updatedAt: string
 }
 
+export type Brand = {
+  _id: string
+  name: string
+  nation: string
+  description: string
+  createdAt: string
+  updatedAt: string
+}
+
 export type CreateProductCategoryResponse = SuccessResponse<{
   productCategory: OriginalProductCategory
 }>
@@ -32,4 +41,21 @@ export type GetAllProductCategoriesResponse = SuccessResponse<{
 
 export type GetOneCategoryResponse = SuccessResponse<{
   category: ProductCategory
+}>
+
+export type GetAllBrandsResponse = SuccessResponse<{
+  brands: Brand[]
+  pagination: Pagination
+}>
+
+export type CreateBrandResponse = SuccessResponse<{
+  brand: Brand
+}>
+
+export type UpdateBrandResponse = SuccessResponse<{
+  brand: Brand
+}>
+
+export type GetBrandResponse = SuccessResponse<{
+  brand: Brand
 }>

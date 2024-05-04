@@ -14,85 +14,84 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { CreateProductCategorySchema, createProductCategorySchema } from '@/rules/products.rules'
-import { ProductCategory } from '@/types/products.types'
+import { CreateBrandSchema, createBrandSchema } from '@/rules/products.rules'
+import { Brand } from '@/types/products.types'
 
-type CreateProductCategoryFormProps = {
-  productCategoryId?: string
+type CreateBrandFormProps = {
+  brandId?: string
 }
 
-const CreateProductCategoryForm = ({ productCategoryId }: CreateProductCategoryFormProps) => {
+const CreateBrandForm = ({ brandId }: CreateBrandFormProps) => {
   const router = useRouter()
 
-  const form = useForm<CreateProductCategorySchema>({
-    resolver: zodResolver(createProductCategorySchema),
+  const form = useForm<CreateBrandSchema>({
+    resolver: zodResolver(createBrandSchema),
     defaultValues: {
       name: '',
+      nation: '',
       description: ''
     }
   })
 
-  const getProductCategoryQuery = useQuery({
-    queryKey: ['get-product-category', productCategoryId],
-    queryFn: () => productsApis.getCategory(productCategoryId as string),
-    enabled: !!productCategoryId
+  const getBrandQuery = useQuery({
+    queryKey: ['get-brand', brandId],
+    queryFn: () => productsApis.getBrand(brandId as string),
+    enabled: !!brandId
   })
 
-  const productCategory = useMemo(
-    () => getProductCategoryQuery.data?.data.data.category,
-    [getProductCategoryQuery.data?.data.data.category]
-  )
+  const brand = useMemo(() => getBrandQuery.data?.data.data.brand, [getBrandQuery.data?.data.data.brand])
 
   const updateFormData = useCallback(
-    (productCategory: ProductCategory) => {
+    (brand: Brand) => {
       const { setValue } = form
-      const { name, description } = productCategory
+      const { name, nation, description } = brand
       setValue('name', name)
+      setValue('nation', nation)
       setValue('description', description)
     },
     [form]
   )
 
-  // Update form when have productCategory data (update mode)
+  // Update form when have brand data (update mode)
   useEffect(() => {
-    if (!productCategory) return
-    updateFormData(productCategory)
-  }, [updateFormData, productCategory])
+    if (!brand) return
+    updateFormData(brand)
+  }, [updateFormData, brand])
 
-  const createProductCategoryMutation = useMutation({
-    mutationKey: ['create-product-category'],
-    mutationFn: productsApis.createCategory,
+  const createBrandMutation = useMutation({
+    mutationKey: ['create-brand'],
+    mutationFn: productsApis.createBrand,
     onSuccess: (data) => {
       toast.success(data.data.message)
       form.reset()
     }
   })
 
-  const updateProductCategoryMutation = useMutation({
-    mutationKey: ['update-product-category'],
-    mutationFn: productsApis.updateCategory,
+  const updateBrandMutation = useMutation({
+    mutationKey: ['update-brand'],
+    mutationFn: productsApis.updateBrand,
     onSuccess: (data) => {
       toast.success(data.data.message)
     }
   })
 
-  const formIsPending = createProductCategoryMutation.isPending || updateProductCategoryMutation.isPending
+  const formIsPending = createBrandMutation.isPending || updateBrandMutation.isPending
 
   const handleSubmit = form.handleSubmit((data) => {
-    if (!productCategoryId) {
-      createProductCategoryMutation.mutate(data)
+    if (!brandId) {
+      createBrandMutation.mutate(data)
       return
     }
-    updateProductCategoryMutation.mutate({ body: data, categoryId: productCategoryId })
+    updateBrandMutation.mutate({ body: data, brandId })
   })
 
   const handleCancel = () => {
-    if (!productCategoryId) {
+    if (!brandId) {
       form.reset()
       return
     }
-    if (!productCategory) return
-    updateFormData(productCategory)
+    if (!brand) return
+    updateFormData(brand)
   }
 
   return (
@@ -105,7 +104,7 @@ const CreateProductCategoryForm = ({ productCategoryId }: CreateProductCategoryF
               <span className='sr-only'>Back</span>
             </Button>
             <h1 className='flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0'>
-              {!productCategoryId ? 'Thêm danh mục sản phẩm mới' : 'Cập nhật danh mục sản phẩm'}
+              {!brandId ? 'Thêm nhãn hiệu mới' : 'Cập nhật nhãn hiệu'}
             </h1>
             <div className='hidden items-center gap-2 md:ml-auto md:flex'>
               <Button type='button' variant='outline' size='sm' onClick={handleCancel}>
@@ -120,8 +119,8 @@ const CreateProductCategoryForm = ({ productCategoryId }: CreateProductCategoryF
           <div className='grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8'>
             <Card>
               <CardHeader>
-                <CardTitle>Thông tin danh mục sản phẩm</CardTitle>
-                <CardDescription>Điền thông tin danh mục sản phẩm</CardDescription>
+                <CardTitle>Thông tin nhãn hiệu</CardTitle>
+                <CardDescription>Điền thông tin nhãn hiệu</CardDescription>
               </CardHeader>
               <CardContent className='space-y-8'>
                 {/* Name */}
@@ -131,6 +130,20 @@ const CreateProductCategoryForm = ({ productCategoryId }: CreateProductCategoryF
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Tên</FormLabel>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                {/* Nation */}
+                <FormField
+                  control={form.control}
+                  name='nation'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Quốc gia</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -161,4 +174,4 @@ const CreateProductCategoryForm = ({ productCategoryId }: CreateProductCategoryF
   )
 }
 
-export default CreateProductCategoryForm
+export default CreateBrandForm

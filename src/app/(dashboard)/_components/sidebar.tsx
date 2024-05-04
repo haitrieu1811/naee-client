@@ -1,7 +1,7 @@
 'use client'
 
 import clsx from 'clsx'
-import { Home, Layers3, LineChart, Package, Package2, Settings, ShoppingCart, Users2 } from 'lucide-react'
+import { Flag, Home, Layers3, LineChart, Package, Package2, Settings, ShoppingCart, Users2 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -28,6 +28,11 @@ export const DASHBOARD_LINKS = [
     href: PATH.DASHBOARD_PRODUCT_CATEGORY,
     icon: Layers3,
     tooltip: 'Danh mục sản phẩm'
+  },
+  {
+    href: PATH.DASHBOARD_PRODUCT_BRAND,
+    icon: Flag,
+    tooltip: 'Nhãn hiệu sản phẩm'
   },
   {
     href: PATH.DASHBOARD_CUSTOMER,
