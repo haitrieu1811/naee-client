@@ -6,8 +6,13 @@ import { useRouter } from 'next/navigation'
 import CreateProductForm from '@/app/(dashboard)/dashboard/product/create-product-form'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-const DashboardProductNew = () => {
+type DashboardProductUpdateProps = {
+  productId: string
+}
+
+const DashboardProductUpdate = ({ productId }: DashboardProductUpdateProps) => {
   const router = useRouter()
   return (
     <main className='mx-auto grid max-w-[59rem] gap-4'>
@@ -17,15 +22,24 @@ const DashboardProductNew = () => {
           <span className='sr-only'>Back</span>
         </Button>
         <h1 className='flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0'>
-          Thêm sản phẩm mới
+          Cập nhật sản phẩm
         </h1>
         <Badge variant='outline' className='ml-auto sm:ml-0'>
           Bản nháp
         </Badge>
       </div>
-      <CreateProductForm />
+      <Tabs defaultValue='info'>
+        <TabsList>
+          <TabsTrigger value='info'>Thông tin sản phẩm</TabsTrigger>
+          <TabsTrigger value='sales'>Thông tin bán hàng</TabsTrigger>
+        </TabsList>
+        <TabsContent value='info'>
+          <CreateProductForm productId={productId} />
+        </TabsContent>
+        <TabsContent value='sales'>Change your password here.</TabsContent>
+      </Tabs>
     </main>
   )
 }
 
-export default DashboardProductNew
+export default DashboardProductUpdate

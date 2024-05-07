@@ -1,27 +1,16 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
 import { PlusCircle } from 'lucide-react'
 import Link from 'next/link'
-import { useMemo } from 'react'
 
-import productsApis from '@/apis/products.apis'
 import { columns } from '@/app/(dashboard)/dashboard/brand/columns'
 import { DataTable } from '@/components/data-table/data-table'
 import { Button } from '@/components/ui/button'
 import PATH from '@/constants/path'
+import useBrands from '@/hooks/useBrands'
 
 const DashboardBrand = () => {
-  const getAllBrandsQuery = useQuery({
-    queryKey: ['get-all-brands'],
-    queryFn: () => productsApis.getAllBrands()
-  })
-
-  const brands = useMemo(
-    () => getAllBrandsQuery.data?.data.data.brands || [],
-    [getAllBrandsQuery.data?.data.data.brands]
-  )
-
+  const { brands } = useBrands()
   return (
     <div className='px-10'>
       <div className='flex justify-end'>

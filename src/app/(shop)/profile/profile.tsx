@@ -9,7 +9,6 @@ import { Fragment, useContext, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
-import filesApis from '@/apis/files.apis'
 import usersApis from '@/apis/users.apis'
 import Heading from '@/app/(shop)/profile/heading'
 import InputFile from '@/components/input-file'
@@ -20,6 +19,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input'
 import { UserVerifyStatus } from '@/constants/enum'
 import isAuth from '@/hocs/isAuth'
+import useUploadImage from '@/hooks/useUploadImage'
 import { isEntityError } from '@/lib/utils'
 import { AppContext } from '@/providers/app-provider'
 import { UpdateMeSchema, updateMeSchema } from '@/rules/users.rules'
@@ -59,10 +59,7 @@ const Profile = () => {
     form.setValue('phoneNumber', me.phoneNumber)
   }, [form, me])
 
-  const uploadImageMutation = useMutation({
-    mutationKey: ['upload-image'],
-    mutationFn: filesApis.uploadImage
-  })
+  const { uploadImageMutation } = useUploadImage()
 
   const updateMeMutation = useMutation({
     mutationKey: ['updateMe'],

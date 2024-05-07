@@ -1,27 +1,16 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
 import { PlusCircle } from 'lucide-react'
 import Link from 'next/link'
-import { useMemo } from 'react'
 
-import productsApis from '@/apis/products.apis'
 import { columns } from '@/app/(dashboard)/dashboard/product-category/columns'
 import { DataTable } from '@/components/data-table/data-table'
 import { Button } from '@/components/ui/button'
 import PATH from '@/constants/path'
+import useProductCategories from '@/hooks/useProductCategories'
 
 const DashboardProductCategory = () => {
-  const getAllProductCategories = useQuery({
-    queryKey: ['get-all-product-categories'],
-    queryFn: () => productsApis.getAllCategories()
-  })
-
-  const productCategories = useMemo(
-    () => getAllProductCategories.data?.data.data.productCategories || [],
-    [getAllProductCategories.data?.data.data.productCategories]
-  )
-
+  const { productCategories } = useProductCategories()
   return (
     <div className='px-10'>
       <div className='flex justify-end'>

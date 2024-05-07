@@ -2,10 +2,14 @@ import http from '@/lib/http'
 import {
   CreateBrandResponse,
   CreateProductCategoryResponse,
+  CreateProductReqBody,
+  CreateProductResponse,
   GetAllBrandsResponse,
   GetAllProductCategoriesResponse,
+  GetAllProductsResponse,
   GetBrandResponse,
   GetOneCategoryResponse,
+  GetOneProductResponse,
   UpdateBrandResponse,
   UpdateProductCategoryResponse
 } from '@/types/products.types'
@@ -50,6 +54,26 @@ const productsApis = {
 
   deleteBrand(brandId: string) {
     return http.delete<OnlyMessageResponse>(`/products/brands/${brandId}`)
+  },
+
+  createProduct(body: CreateProductReqBody) {
+    return http.post<CreateProductResponse>('/products', body)
+  },
+
+  getAllProducts(params?: PaginationReqQuery) {
+    return http.get<GetAllProductsResponse>('/products', { params })
+  },
+
+  getOneProduct(productId: string) {
+    return http.get<GetOneProductResponse>(`/products/${productId}`)
+  },
+
+  updateProduct({ productId, body }: { productId: string; body: CreateProductReqBody }) {
+    return http.put<OnlyMessageResponse>(`/products/${productId}`, body)
+  },
+
+  deleteProduct(productId: string) {
+    return http.delete<OnlyMessageResponse>(`/products/${productId}`)
   }
 } as const
 

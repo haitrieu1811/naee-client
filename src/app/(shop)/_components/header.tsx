@@ -1,17 +1,16 @@
 'use client'
 
-import { useMutation } from '@tanstack/react-query'
 import Tippy from '@tippyjs/react/headless'
-import { Check, ChevronRight, Languages, Search, ShoppingCart, SunMoon, X } from 'lucide-react'
+import { ChevronRight, Search, ShoppingCart, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useContext, useRef, useState } from 'react'
-import { toast } from 'sonner'
 
-import usersApis from '@/apis/users.apis'
-import { default as avatar, default as image } from '@/assets/images/react.png'
+import { default as image } from '@/assets/images/react.png'
+import AccountDropdown from '@/components/account-dropdown'
 import Logo from '@/components/logo'
+import ModeToggle from '@/components/mode-toggle'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
@@ -19,7 +18,6 @@ import { UserRole } from '@/constants/enum'
 import PATH from '@/constants/path'
 import useIsClient from '@/hooks/useIsClient'
 import { AppContext } from '@/providers/app-provider'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState<string>('')
@@ -36,31 +34,6 @@ const Header = () => {
     searchBoxRef.current?.focus()
   }
 
-  const logoutMutation = useMutation({
-    mutationKey: ['logout'],
-    mutationFn: usersApis.logout,
-    onSuccess: () => {
-      setIsAuthenticated(false)
-      setProfile(null)
-      toast.success('Đăng xuất thành công')
-    }
-  })
-
-  const USER_LINKS = useRef([
-    {
-      href: PATH.PROFILE,
-      text: 'Tài khoản của tôi'
-    },
-    {
-      href: '/',
-      text: 'Đơn mua'
-    },
-    {
-      text: 'Đăng xuất',
-      onClick: () => logoutMutation.mutate()
-    }
-  ])
-
   return (
     <header className='border-b bg-background sticky top-0 left-0 right-0 z-10'>
       <nav className='flex justify-between items-center h-10 max-w-7xl mx-auto'>
@@ -72,68 +45,7 @@ const Header = () => {
           )}
         </div>
         <div className='flex items-center space-x-8'>
-          <Tippy
-            interactive
-            offset={[0, 8]}
-            placement='bottom-end'
-            zIndex={99999}
-            render={() => (
-              <div className='shadow-lg rounded-md border overflow-hidden w-[140px] bg-background'>
-                <Button variant='ghost' className='flex justify-between items-center rounded-none w-full'>
-                  <span>Tiếng Việt</span>
-                  <Check size={16} />
-                </Button>
-                <Button variant='ghost' className='flex justify-between items-center rounded-none w-full'>
-                  <span>Tiếng Anh</span>
-                  {false && <Check size={16} />}
-                </Button>
-              </div>
-            )}
-          >
-            <div className='flex items-center space-x-2'>
-              <Languages size={16} />
-              <span className='text-sm'>Ngôn ngữ</span>
-            </div>
-          </Tippy>
-          <Tippy
-            interactive
-            offset={[0, 8]}
-            placement='bottom-end'
-            zIndex={99999}
-            render={() => (
-              <div className='shadow-lg rounded-md border overflow-hidden w-[200px] bg-background'>
-                <Button
-                  variant='ghost'
-                  className='flex justify-between items-center rounded-none w-full'
-                  onClick={() => setTheme('light')}
-                >
-                  <span>Giao diện sáng</span>
-                  {theme === 'light' && <Check size={16} />}
-                </Button>
-                <Button
-                  variant='ghost'
-                  className='flex justify-between items-center rounded-none w-full'
-                  onClick={() => setTheme('dark')}
-                >
-                  <span>Giao diện tối</span>
-                  {theme === 'dark' && <Check size={16} />}
-                </Button>
-                <Button
-                  variant='ghost'
-                  className='flex justify-between items-center rounded-none w-full'
-                  onClick={() => setTheme('system')}
-                >
-                  <span>Giao diện của thiết bị</span>
-                  {theme === 'system' && <Check size={16} />}
-                </Button>
-              </div>
-            )}
-          >
-            <div className='flex items-center space-x-2'>
-              <SunMoon size={16} />
-              <span className='text-sm'>Giao diện</span>
-            </div>
-          </Tippy>
+          <ModeToggle />
           {!isAuthenticated && isClient && (
             <div className='flex items-center'>
               <Link href={PATH.REGISTER} className='text-sm'>
@@ -145,36 +57,7 @@ const Header = () => {
               </Link>
             </div>
           )}
-          {isAuthenticated && profile && isClient && (
-            <Tippy
-              interactive
-              offset={[0, 8]}
-              placement='bottom-end'
-              render={() => (
-                <div className='shadow-lg rounded-sm bg-background border overflow-hidden'>
-                  {USER_LINKS.current.map((item, index) => (
-                    <Button
-                      key={index}
-                      variant='ghost'
-                      className='flex justify-start rounded-none w-full pr-10'
-                      asChild={!!item.href}
-                      onClick={item.onClick}
-                    >
-                      {!!item.href ? <Link href={item.href}>{item.text}</Link> : item.text}
-                    </Button>
-                  ))}
-                </div>
-              )}
-            >
-              <Link href={PATH.PROFILE} className='flex items-center space-x-2'>
-                <Avatar className='w-5 h-5'>
-                  <AvatarImage src={profile.avatar} alt={profile.fullName} />
-                  <AvatarFallback>{profile.email[0].toUpperCase()}</AvatarFallback>
-                </Avatar>
-                <span className='text-sm'>{!!profile?.fullName ? profile.fullName : profile?.email}</span>
-              </Link>
-            </Tippy>
-          )}
+          {isAuthenticated && profile && isClient && <AccountDropdown />}
         </div>
       </nav>
       <div className='max-w-7xl mx-auto flex items-center h-24 space-x-20'>

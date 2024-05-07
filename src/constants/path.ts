@@ -15,6 +15,7 @@ const PATH = {
   DASHBOARD_ANALYTICS: '/dashboard/analytics',
   DASHBOARD_PRODUCT: '/dashboard/product',
   DASHBOARD_PRODUCT_NEW: '/dashboard/product/new',
+  DASHBOARD_PRODUCT_UPDATE: (productId: string) => `/dashboard/product/${productId}`,
   DASHBOARD_PRODUCT_CATEGORY: '/dashboard/product-category',
   DASHBOARD_PRODUCT_CATEGORY_NEW: '/dashboard/product-category/new',
   DASHBOARD_PRODUCT_CATEGORY_UPDATE: (productCategoryId: string) => `/dashboard/product-category/${productCategoryId}`,
