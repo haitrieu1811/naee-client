@@ -10,6 +10,7 @@ import {
   GetBrandResponse,
   GetOneCategoryResponse,
   GetOneProductResponse,
+  GetProductsResponse,
   UpdateBrandResponse,
   UpdateProductCategoryResponse
 } from '@/types/products.types'
@@ -61,7 +62,11 @@ const productsApis = {
   },
 
   getAllProducts(params?: PaginationReqQuery) {
-    return http.get<GetAllProductsResponse>('/products', { params })
+    return http.get<GetAllProductsResponse>('/products/all', { params })
+  },
+
+  getProducts(params?: PaginationReqQuery) {
+    return http.get<GetProductsResponse>('/products', { params })
   },
 
   getOneProduct(productId: string) {

@@ -57,3 +57,17 @@ export const getIdFromNameId = (nameId: string) => {
   const arr = nameId.split('-i-')
   return arr[arr.length - 1]
 }
+
+export const formatNumberToSocialStyle = (number: number) => {
+  return new Intl.NumberFormat('en', {
+    notation: 'compact',
+    maximumFractionDigits: 1
+  })
+    .format(number)
+    .replace('.', ',')
+    .toLocaleLowerCase()
+}
+
+export const rateSale = (originalPrice: number, salePrice: number) => {
+  return Math.round(((originalPrice - salePrice) / originalPrice) * 100)
+}

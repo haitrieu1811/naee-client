@@ -165,6 +165,12 @@ export type CreateProductResponse = SuccessResponse<{
 
 export type GetAllProductsResponse = SuccessResponse<{
   products: Product[]
+  pagination: Pagination
+}>
+
+export type GetProductsResponse = SuccessResponse<{
+  products: Product[]
+  pagination: Pagination
 }>
 
 export type GetOneProductResponse = SuccessResponse<{
