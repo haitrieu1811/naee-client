@@ -14,6 +14,19 @@ export type LoggedUser = {
   updatedAt: string
 }
 
+export type Customer = {
+  _id: string
+  email: string
+  phoneNumber: string
+  fullName: string
+  avatar: string
+  status: UserStatus
+  role: UserRole
+  verify: UserVerifyStatus
+  createdAt: string
+  updatedAt: string
+}
+
 export type LoginResponse = SuccessResponse<{
   accessToken: string
   refreshToken: string
@@ -23,3 +36,7 @@ export type LoginResponse = SuccessResponse<{
 export type GetMeResponse = LoginResponse
 
 export type UpdateMeResponse = LoginResponse
+
+export type GetAllCustomersResponse = SuccessResponse<{
+  customers: Customer[]
+}>

@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
-import { PenLine, Trash } from 'lucide-react'
+import { Ellipsis } from 'lucide-react'
 import Link from 'next/link'
+import { Fragment, useState } from 'react'
 import { toast } from 'sonner'
 
 import productsApis from '@/apis/products.apis'
@@ -15,11 +16,17 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger
+  AlertDialogTitle
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
 import PATH from '@/constants/path'
 import { Brand } from '@/types/products.types'
 
@@ -75,6 +82,7 @@ export const columns: ColumnDef<Brand>[] = [
     cell: ({ row }) => {
       const queryClient = useQueryClient()
       const brand = row.original
+      const [isOpenDeleteDialog, setIsOpenDeleteDialog] = useState<boolean>(false)
 
       const deleteBrandMutation = useMutation({
         mutationKey: ['delete-brand'],
@@ -87,20 +95,25 @@ export const columns: ColumnDef<Brand>[] = [
       })
 
       return (
-        <div className='flex justify-end space-x-3'>
-          <Button size='sm' asChild>
-            <Link href={PATH.DASHBOARD_BRAND_UPDATE(brand._id)}>
-              <PenLine size={16} className='mr-2' />
-              Cập nhật
-            </Link>
-          </Button>
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button size='sm' variant='destructive'>
-                <Trash size={16} className='mr-2' />
-                Xóa
-              </Button>
-            </AlertDialogTrigger>
+        <Fragment>
+          <div className='flex justify-end'>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant='ghost' size='icon'>
+                  <Ellipsis size={18} />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align='end'>
+                <DropdownMenuItem asChild>
+                  <Link href={PATH.DASHBOARD_BRAND_UPDATE(brand._id)}>Cập nhật</Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => setIsOpenDeleteDialog(true)}>Xóa</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
+          <AlertDialog open={isOpenDeleteDialog} onOpenChange={(value) => setIsOpenDeleteDialog(value)}>
             <AlertDialogContent className='max-w-sm'>
               <AlertDialogHeader>
                 <AlertDialogTitle>Bạn có chắc muốn xóa nhãn hiệu này?</AlertDialogTitle>
@@ -114,7 +127,7 @@ export const columns: ColumnDef<Brand>[] = [
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-        </div>
+        </Fragment>
       )
     }
   }

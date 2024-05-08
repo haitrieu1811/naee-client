@@ -1,7 +1,7 @@
 import { getRefreshTokenFromLS } from '@/lib/auth'
 import http from '@/lib/http'
-import { GetMeResponse, LoginResponse, UpdateMeResponse } from '@/types/users.types'
-import { AuthResponse, OnlyMessageResponse } from '@/types/utils.types'
+import { GetAllCustomersResponse, GetMeResponse, LoginResponse, UpdateMeResponse } from '@/types/users.types'
+import { AuthResponse, OnlyMessageResponse, PaginationReqQuery } from '@/types/utils.types'
 
 export const LOGIN_URL = '/users/login'
 export const LOGOUT_URL = '/users/logout'
@@ -53,6 +53,10 @@ const usersApis = {
 
   resetPassword(body: { password: string; confirmPassword: string; forgotPasswordToken: string }) {
     return http.patch<OnlyMessageResponse>('/users/reset-password', body)
+  },
+
+  getAllCustomers(params?: PaginationReqQuery) {
+    return http.get<GetAllCustomersResponse>('/users/customers/all', { params })
   }
 } as const
 

@@ -10,7 +10,6 @@ const PATH = {
   PASSWORD: '/profile/password',
 
   DASHBOARD: '/dashboard',
-  DASHBOARD_CUSTOMER: '/dashboard/customer',
   DASHBOARD_ORDER: '/dashboard/order',
   DASHBOARD_ANALYTICS: '/dashboard/analytics',
   DASHBOARD_PRODUCT: '/dashboard/product',
@@ -21,7 +20,9 @@ const PATH = {
   DASHBOARD_PRODUCT_CATEGORY_UPDATE: (productCategoryId: string) => `/dashboard/product-category/${productCategoryId}`,
   DASHBOARD_PRODUCT_BRAND: '/dashboard/brand',
   DASHBOARD_PRODUCT_BRAND_NEW: '/dashboard/brand/new',
-  DASHBOARD_BRAND_UPDATE: (brandId: string) => `/dashboard/brand/${brandId}`
+  DASHBOARD_BRAND_UPDATE: (brandId: string) => `/dashboard/brand/${brandId}`,
+  DASHBOARD_CUSTOMER: '/dashboard/customer',
+  DASHBOARD_CUSTOMER_DETAIL: (userId: string) => `/dashboard/customer/${userId}`
 } as const
 
 export default PATH

@@ -56,8 +56,8 @@ type CreateProductFormProps = {
 }
 
 const CreateProductForm = ({ productId }: CreateProductFormProps) => {
-  const { productCategories } = useProductCategories()
-  const { brands } = useBrands()
+  const { productCategories } = useProductCategories({})
+  const { brands } = useBrands({})
   const { uploadImageMutation } = useUploadImage()
 
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null)

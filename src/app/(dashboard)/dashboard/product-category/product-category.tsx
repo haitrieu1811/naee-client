@@ -10,7 +10,7 @@ import PATH from '@/constants/path'
 import useProductCategories from '@/hooks/useProductCategories'
 
 const DashboardProductCategory = () => {
-  const { productCategories } = useProductCategories()
+  const { productCategories } = useProductCategories({})
   return (
     <div className='px-10'>
       <div className='flex justify-end'>

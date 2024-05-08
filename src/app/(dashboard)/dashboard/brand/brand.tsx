@@ -10,14 +10,14 @@ import PATH from '@/constants/path'
 import useBrands from '@/hooks/useBrands'
 
 const DashboardBrand = () => {
-  const { brands } = useBrands()
+  const { brands } = useBrands({})
   return (
     <div className='px-10'>
       <div className='flex justify-end'>
         <Button size='sm' className='h-7 gap-1' asChild>
           <Link href={PATH.DASHBOARD_PRODUCT_BRAND_NEW}>
             <PlusCircle className='h-3.5 w-3.5' />
-            <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>Thêm danh mục sản phẩm</span>
+            <span className='sr-only sm:not-sr-only sm:whitespace-nowrap'>Thêm nhãn hiệu</span>
           </Link>
         </Button>
       </div>
