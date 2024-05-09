@@ -7,7 +7,9 @@ const ShopLayout = ({ children }: { children: ReactNode }) => {
   return (
     <Fragment>
       <Header />
-      <main className='max-w-7xl mx-auto'>{children}</main>
+      <div className='bg-muted'>
+        <main className='max-w-7xl mx-auto'>{children}</main>
+      </div>
       <Footer />
     </Fragment>
   )

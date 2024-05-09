@@ -10,7 +10,7 @@ const ProductCategories = () => {
   const { productCategories } = useProductCategories({})
 
   return (
-    <div>
+    <div className='bg-background shadow-sm'>
       {productCategories.map((productCategory) => (
         <Button key={productCategory._id} variant='ghost' className='w-full justify-start' asChild>
           <Link href={PATH.HOME}>{productCategory.name}</Link>

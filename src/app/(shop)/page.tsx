@@ -18,7 +18,7 @@ const HomePage = () => {
   return (
     <div className='grid gap-10'>
       <div className='grid grid-cols-12 gap-10 mt-3'>
-        <div className='col-span-3 max-h-[400px] overflow-y-auto border rounded-lg'>
+        <div className='col-span-3 max-h-[400px] overflow-y-auto'>
           <ProductCategories />
         </div>
         <div className='col-span-9 h-[400px]'>

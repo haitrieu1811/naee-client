@@ -13,7 +13,7 @@ type ProductItemProps = {
 const ProductItem = ({ productData }: ProductItemProps) => {
   return (
     <div className='space-y-4 shadow-sm'>
-      <Link href={PATH.HOME}>
+      <Link href={PATH.PRODUCT_DETAIL({ name: productData.name, id: productData._id })}>
         <Image
           width={200}
           height={200}
@@ -22,7 +22,10 @@ const ProductItem = ({ productData }: ProductItemProps) => {
           className='object-cover w-full h-[180px] rounded-lg'
         />
       </Link>
-      <Link href={PATH.HOME} className='line-clamp-2 font-medium text-sm'>
+      <Link
+        href={PATH.PRODUCT_DETAIL({ name: productData.name, id: productData._id })}
+        className='line-clamp-2 font-medium text-sm'
+      >
         {productData.name}
       </Link>
       <div>
